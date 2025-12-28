@@ -2,9 +2,15 @@ package johncornflakes.torcheslightmobsonfire;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.block.TorchBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.DrownedEntity;
+import net.minecraft.entity.mob.HuskEntity;
+import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -28,15 +34,33 @@ public class TorchesLightMobsOnFire implements ModInitializer {
 
 		LOGGER.info("Hello Fabric world!");
 
-        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-            Item handItem = player.getMainHandStack().getItem();
-            if (entity instanceof LivingEntity && (handItem == Items.TORCH || handItem == Items.SOUL_TORCH)) {
-//                entity.setOnFire(true);
-                entity.setOnFireForTicks(120);
+//        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+//            Item handItem = player.getMainHandStack().getItem();
+//            if (entity instanceof LivingEntity && (handItem == Items.TORCH || handItem == Items.SOUL_TORCH)) {
+//                entity.setOnFireForTicks(120);
+//
+//            }
+//
+//            return ActionResult.PASS;
+//        });
 
+        ServerLivingEntityEvents.ALLOW_DAMAGE.register((livingEntity, damageSource, v) -> {
+            LOGGER.info(livingEntity.toString());
+            Entity attacker = damageSource.getAttacker();
+
+            if (attacker instanceof ZombieEntity || attacker instanceof PlayerEntity || attacker instanceof HuskEntity || attacker instanceof DrownedEntity) {
+                LOGGER.info(attacker.toString());
+                Item itemInMain = ((LivingEntity) attacker).getMainHandStack().getItem();
+                if (itemInMain == Items.TORCH || itemInMain == Items.SOUL_TORCH) {
+                    livingEntity.setFireTicks(120);
+                }
             }
 
-            return ActionResult.PASS;
+//            LOGGER.info(damageSource.toString());
+
+            return true;
         });
+
+
 	}
 }
