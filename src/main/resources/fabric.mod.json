@@ -3,9 +3,9 @@
 	"id": "torches-light-mobs-on-fire",
 	"version": "${version}",
 	"name": "Torches Light Mobs On Fire",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Allows you to light mobs on fire with a torch",
 	"authors": [
-		"Me!"
+		"John Cornflakes"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
