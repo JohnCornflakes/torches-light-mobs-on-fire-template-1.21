@@ -1,0 +1,4 @@
+name: tlmof-spigot-paper-1.21.X
+version: '1.0-SNAPSHOT'
+main: me.JohnCornflakes.tlmofSpigotPaper121X.TlmofSpigotPaper121X
+api-version: '1.21'
