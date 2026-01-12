@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.impl.object.builder.FabricEntityTypeImpl;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +33,6 @@ public class TorchesLightMobsOnFire implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Hello Fabric world!");
 
 //        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 //            Item handItem = player.getMainHandStack().getItem();
@@ -45,13 +45,12 @@ public class TorchesLightMobsOnFire implements ModInitializer {
 //        });
 
         ServerLivingEntityEvents.ALLOW_DAMAGE.register((livingEntity, damageSource, v) -> {
-            LOGGER.info(livingEntity.toString());
             Entity attacker = damageSource.getAttacker();
 
-            if (attacker instanceof ZombieEntity || attacker instanceof PlayerEntity || attacker instanceof HuskEntity || attacker instanceof DrownedEntity) {
-                LOGGER.info(attacker.toString());
+//            if (attacker instanceof ZombieEntity || attacker instanceof PlayerEntity || attacker instanceof HuskEntity || attacker instanceof DrownedEntity) {
+            if (attacker instanceof LivingEntity) {
                 Item itemInMain = ((LivingEntity) attacker).getMainHandStack().getItem();
-                if (itemInMain == Items.TORCH || itemInMain == Items.SOUL_TORCH) {
+                if (itemInMain == Items.TORCH || itemInMain == Items.SOUL_TORCH || itemInMain == Items.COPPER_TORCH) {
                     livingEntity.setFireTicks(120);
                 }
             }
