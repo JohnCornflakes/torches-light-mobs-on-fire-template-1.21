@@ -72,7 +72,7 @@ public class Tlmofneoforge121x {
         if (dmgSourceEnt instanceof LivingEntity) {
             LivingEntity attacker = (LivingEntity) dmgSourceEnt;
             ItemStack mainHand = attacker.getMainHandItem();
-            if (mainHand.getItem() == Items.TORCH || mainHand.getItem() == Items.SOUL_TORCH) {
+            if (mainHand.getItem() == Items.TORCH || mainHand.getItem() == Items.SOUL_TORCH || mainHand.getItem() == Items.COPPER_TORCH) {
                 victim.setRemainingFireTicks(120);
             }
         }
